@@ -99,7 +99,14 @@ mun_spdf_fort <- mun_spdf_fort %>%
   dplyr::rename(ID=ID.y,
                 ID2=ID)
 
+######### Tabla Toponimia #########
+
+tabla_toponimia <- list(regional = reg_spdf@data,
+                        provincial = prov_spdf@data,
+                        municipal = mun_spdf@data)
+
 ######### Guardar Vars ###########
 # guardar variables de los mapas
 save(reg_spdf,prov_spdf,mun_spdf, file="data/mapasRD_spdf.RData")
 save(reg_spdf_fort,prov_spdf_fort,mun_spdf_fort, file="data/mapasRD_spdf_fort.RData")
+save(tabla_toponimia, file="data/tabla_toponimia.RData")

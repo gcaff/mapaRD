@@ -2,21 +2,25 @@
 % Please edit documentation in R/funs.R
 \name{buscarMapaRD}
 \alias{buscarMapaRD}
-\title{Graficar mapa de la Rep. Dom.}
+\title{Buscar coordenadas de mapas por division territorial}
 \usage{
-buscarMapaRD(nivel, sub)
+buscarMapaRD(nivel, sub, maptype = "ggplot")
 }
 \arguments{
-\item{method2order}{method to order colors (\code{"hsv"} or \code{"cluster"})}
+\item{nivel}{nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})}
 
-\item{cex}{character expansion for the text}
+\item{sub}{subconjunto de territorios}
 
-\item{mar}{margin parameters; vector of length 4 (see \code{\link[graphics]{par}})}
+\item{maptype}{busca el archivo dependiento el tipo de grafico}
 }
 \value{
 None
 }
 \description{
-Grafica el mapa de la Rep. Dom. por distintos niveles administrativos: regional,
-provincial y municipal.
+Función interna al paquete que busca en la data las coordenadas de los mapas
+por territorio
+}
+\examples{
+buscarMapaRD(nivel="provincial")
+
 }

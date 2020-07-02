@@ -8,18 +8,21 @@
 #' @param var nombre de variable
 #' @param sub subconjunto de territorios
 #'
-#' @return Mapa formato ggplot
+#' @return Mapa formato objeto ggplot
 #'
 #' @examples
 #' d <- data.frame(ID = 1:32, x = rnorm(32))
-#' ggmapaRD("provincial", df = d, var= "x")
+#' ggmapaRD("provincial", df = d, var= "x", idName = "ID2")
 #'
 #' @export
 ggmapaRD <- function(nivel="provincial",df, var, sub, idName){
 
-  browser()
-  rd_spdf <- buscarMapaRD(nivel=nivel, sub = sub, maptype = "ggplot")
+  varname <- sym(var)
 
+  # buscar coordenadas del mapa
+  rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, sub = sub, maptype = "ggplot")
+
+  # unir las coordenadas con la data de df
   if (idName == "ID2"){
     rd_spdf <- rd_spdf %>%
       dplyr::left_join(df, by=c("ID2"="ID"))
@@ -28,9 +31,7 @@ ggmapaRD <- function(nivel="provincial",df, var, sub, idName){
       dplyr::left_join(df, by="ID")
   }
 
-
-  varname <- sym(var)
-
+  # graficar el mapa
   rd_spdf %>%
     ggplot2::ggplot(ggplot2::aes(x=long, y=lat,group=group)) +
     ggplot2::geom_polygon(ggplot2::aes(fill= !!varname)) +
@@ -58,10 +59,12 @@ ggmapaRD <- function(nivel="provincial",df, var, sub, idName){
 #' @export
 mapaRD <- function(nivel="provincial",df, var, sub, idName){
 
-  browser()
-  rd_spdf <- buscarMapaRD(nivel=nivel, sub = sub, maptype = "base")
+  #browser()
 
-  # porque
+  # buscar coordenadas del mapa
+  rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, sub = sub, maptype = "base")
+
+  # unir las coordenadas con la data de df
   if (idName=="ID2"){
     rd_spdf@data <- rd_spdf@data %>%
       dplyr::left_join(df, by=c("ID2"="ID"))
@@ -70,25 +73,47 @@ mapaRD <- function(nivel="provincial",df, var, sub, idName){
       dplyr::left_join(df, by="ID")
   }
 
-
+  # graficar el mapa
   cartography::choroLayer(spdf = rd_spdf, var = var)
 
 }
 
+#' Tabla de toponimia
+#'
+#' Muestra la tabla de nombres, identificadores, y demás detalles de
+#' las divisiones territoriales para cada nivel administrativo.
+#'
+#' @param nivel nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})
+#'
+#' @return data.frame
+#'
+#' @examples
+#' tabla_toponimia(nivel="provincial")
+#'
+#' @export
+tabla_toponimia <- function(nivel="provincial"){
 
-#' Graficar mapa de la Rep. Dom.
+  # importar tabla toponimia
+  load("data/tabla_toponimia.RData")
+
+  # seleccionar tabla de acorde al nivel territorial
+  tabla_toponimia[[nivel]]
+
+}
+
+#' Buscar coordenadas de mapas por division territorial
 #'
-#' Grafica el mapa de la Rep. Dom. por distintos niveles administrativos: regional,
-#' provincial y municipal.
+#' Función interna al paquete que busca en la data las coordenadas de los mapas
+#' por territorio
 #'
-#' @param method2order method to order colors (\code{"hsv"} or \code{"cluster"})
-#' @param cex character expansion for the text
-#' @param mar margin parameters; vector of length 4 (see \code{\link[graphics]{par}})
+#' @param nivel nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})
+#' @param sub subconjunto de territorios
+#' @param maptype busca el archivo dependiento el tipo de grafico
 #'
 #' @return None
 #'
 #' @examples
-#' buscarMapaRD(nivel="provincial)
+#' buscarMapaRD(nivel="provincial")
 #'
 buscarMapaRD <- function(nivel,sub,maptype="ggplot"){
 
@@ -127,8 +152,6 @@ buscarMapaRD <- function(nivel,sub,maptype="ggplot"){
 
 
     }
-
-
 
   spdf
 }
