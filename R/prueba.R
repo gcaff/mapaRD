@@ -11,20 +11,26 @@ dd <- d %>%
   filter(fecha == "16/4/20") %>%
   mutate(ID = prov_id)
 
-mapaRD(nivel="provincial",dd,"casos_acum", idName = "ID2")
-ggmapaRD(nivel="provincial",dd,"casos_acum", idName = "ID2")
+mapaRD(dd,"casos_acum",nivel="provincial", idName = "ID2")
+ggmapaRD(dd,"casos_acum",nivel="provincial", idName = "ID2")
 
 # nivel regional
 
 d <- data.frame(ID=1:10,x=runif(10))
-mapaRD(nivel="regional",d,"x", idName = "ID2")
-ggmapaRD(nivel="regional",d,"x", idName = "ID2")
+mapaRD(d,"x",nivel="regional", idName = "ID2")
+ggmapaRD(d,"x",nivel="regional", idName = "ID2")
 
 
 # nivel municipal
 
 d <- data.frame(ID=1:155,x=runif(155))
-mapaRD(nivel="municipal",d,"x", idName="ID2")
-ggmapaRD(nivel="municipal",d,"x", idName="ID2")
+mapaRD(d,"x",nivel="municipal", idName="ID2")
+ggmapaRD(d,"x",nivel="municipal", idName="ID2")
+
+# municipal para el gran santo domingo
+
+d <- data.frame(ID=1:15,x=runif(15))
+mapaRD(d,"x",nivel="municipal", idName="ID2")
+ggmapaRD(d,"x",nivel="municipal", idName = "ID2")
 
 

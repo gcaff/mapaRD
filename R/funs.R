@@ -6,7 +6,8 @@
 #' @param nivel nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})
 #' @param df dataframe con los valores
 #' @param var nombre de variable
-#' @param sub subconjunto de territorios
+#' @param na.rm logical que cuando es verdadero, excluye del gráfico los territorios
+#' con valores NA
 #'
 #' @return Mapa formato objeto ggplot
 #'
@@ -15,12 +16,12 @@
 #' ggmapaRD("provincial", df = d, var= "x", idName = "ID2")
 #'
 #' @export
-ggmapaRD <- function(nivel="provincial",df, var, sub, idName){
+ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
 
   varname <- sym(var)
 
   # buscar coordenadas del mapa
-  rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, sub = sub, maptype = "ggplot")
+  rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, maptype = "ggplot")
 
   # unir las coordenadas con la data de df
   if (idName == "ID2"){
@@ -31,6 +32,10 @@ ggmapaRD <- function(nivel="provincial",df, var, sub, idName){
       dplyr::left_join(df, by="ID")
   }
 
+  if (na.rm){
+    rd_spdf <- rd_spdf %>%
+      dplyr::filter(!is.na(!!varname))
+  }
   # graficar el mapa
   rd_spdf %>%
     ggplot2::ggplot(ggplot2::aes(x=long, y=lat,group=group)) +
@@ -48,7 +53,8 @@ ggmapaRD <- function(nivel="provincial",df, var, sub, idName){
 #' @param nivel nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})
 #' @param df dataframe con los valores
 #' @param var nombre de variable
-#' @param sub subconjunto de territorios
+#' @param na.rm logical que cuando es verdadero, excluye del gráfico los territorios
+#' con valores NA
 #'
 #' @return Mapa
 #'
@@ -57,12 +63,12 @@ ggmapaRD <- function(nivel="provincial",df, var, sub, idName){
 #' mapaRD("provincial", df = d, var= "x")
 #'
 #' @export
-mapaRD <- function(nivel="provincial",df, var, sub, idName){
+mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
 
-  #browser()
+  varname <- sym(var)
 
   # buscar coordenadas del mapa
-  rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, sub = sub, maptype = "base")
+  rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, maptype = "base")
 
   # unir las coordenadas con la data de df
   if (idName=="ID2"){
@@ -71,6 +77,12 @@ mapaRD <- function(nivel="provincial",df, var, sub, idName){
   } else {
     rd_spdf@data <- rd_spdf@data %>%
       dplyr::left_join(df, by="ID")
+  }
+
+  # si na.rm=TRUE, excluye del grafico los territorios con NAs
+  if (na.rm){
+    rd_spdf <- rd_spdf %>%
+      subset(!is.na(eval(varname)))
   }
 
   # graficar el mapa
@@ -115,7 +127,7 @@ tabla_toponimia <- function(nivel="provincial"){
 #' @examples
 #' buscarMapaRD(nivel="provincial")
 #'
-buscarMapaRD <- function(nivel,sub,maptype="ggplot"){
+buscarMapaRD <- function(nivel,maptype="ggplot"){
 
   if (maptype == "ggplot"){
       # cargar data de los mapas
