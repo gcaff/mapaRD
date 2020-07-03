@@ -113,3 +113,6 @@ tabla_topon <- list(regional = reg_spdf@data,
 save(reg_spdf,prov_spdf,mun_spdf, file="data/mapasRD_spdf.RData")
 save(reg_spdf_fort,prov_spdf_fort,mun_spdf_fort, file="data/mapasRD_spdf_fort.RData")
 save(tabla_toponimia, file="data/tabla_toponimia.RData")
+usethis::use_data(tabla_topon, reg_spdf, reg_spdf_fort,
+         prov_spdf, prov_spdf_fort,
+         mun_spdf,mun_spdf_fort, internal = TRUE, overwrite = TRUE)

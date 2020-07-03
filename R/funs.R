@@ -165,7 +165,9 @@ mapaRD_interactivo <- function(df, var, nivel="provincial", na.rm = FALSE, idNam
 tabla_toponimia <- function(nivel="provincial"){
 
   # importar tabla toponimia
-  load("data/tabla_toponimia.RData")
+  # dirPath <- .libPaths()
+  # dirPath <- paste0(dirPath,"/mapaRD/data/tabla_toponimia.RData")[1]
+  # load(dirPath)
 
   # seleccionar tabla de acorde al nivel territorial
   tabla_topon[[nivel]]
@@ -188,9 +190,13 @@ tabla_toponimia <- function(nivel="provincial"){
 #'
 buscarMapaRD <- function(nivel,maptype="ggplot"){
 
+  #dirPath <- .libPaths()
+  #dirPath <- paste0(dirPath,"/mapaRD/data/")[1]
+
   if (maptype == "ggplot"){
       # cargar data de los mapas
-      load("~/wd/R/paquetes/mapaRD/data/mapasRD_spdf_fort.RData")
+      #dirPath <- paste0(dirPath,"mapasRD_spdf_fort.RData")
+      #load(dirPath)
 
       # filtrar por nivel territorial
       if (nivel == "regional"){
@@ -207,7 +213,8 @@ buscarMapaRD <- function(nivel,maptype="ggplot"){
 
     } else {
       # cargar data de los mapas
-      load("~/wd/R/paquetes/mapaRD/data/mapasRD_spdf.RData")
+      #dirPath <- paste0(dirPath,"mapasRD_spdf.RData")
+      #load(dirPath)
 
       # filtrar por nivel territorial
       if (nivel == "regional"){
@@ -220,7 +227,6 @@ buscarMapaRD <- function(nivel,maptype="ggplot"){
         stop("Debe suministrar un nivel territorial: regional, provincial o municipal")
       }
       # agregar aqui codigo para filtrar por provincia/municipio
-
 
     }
 
