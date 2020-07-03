@@ -3,7 +3,7 @@ Graficar mapas coropléticos de la República Dominicana
 
 ![alt text][imagen]
 
-[imagen]: vignette/images/municipal.png "Mapa cloroplético"
+[imagen]: https://raw.githubusercontent.com/gcaff/mapaRD/master/vignettes/images/municipal.png "Mapa cloroplético"
 
 ## Instalación
 
