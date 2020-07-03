@@ -1,0 +1,59 @@
+---
+title: "Documentación paquete 'mapaRD'"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Documentación paquete 'mapaRD'}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Documentación (INCOMPLETO)
+
+```{r}
+library(dplyr)
+library(mapaRD)
+```
+
+```{r}
+# nivel provincial
+d <- read.csv("https://gcaff.github.io/covid-rd/data/covid_data_rd.csv")
+
+d <- d%>%
+  filter(provincia != "No especificado")
+
+d$prov_id <- rep(1:32,102)
+
+dd <- d %>%
+  filter(fecha == "16/4/20") %>%
+  mutate(ID = prov_id)
+
+mapaRD(dd,"casos_acum",nivel="provincial", idName = "ID2")
+ggmapaRD(dd,"casos_acum",nivel="provincial", idName = "ID2")
+
+```
+
+```{r}
+
+# nivel regional
+
+d <- data.frame(ID=1:10,x=runif(10))
+mapaRD(d,"x",nivel="regional", idName = "ID2")
+ggmapaRD(d,"x",nivel="regional", idName = "ID2")
+
+```
+
+```{r}
+
+# nivel municipal
+
+d <- data.frame(ID=1:155,x=runif(155))
+mapaRD(d,"x",nivel="municipal", idName="ID2")
+ggmapaRD(d,"x",nivel="municipal", idName="ID2")
+
+```
+
+

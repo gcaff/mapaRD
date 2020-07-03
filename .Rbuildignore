@@ -5,3 +5,5 @@
 ^\.travis\.yml$
 R/generar_mapas.R
 R/prueba.R
+^doc$
+^Meta$

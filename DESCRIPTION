@@ -18,3 +18,5 @@ Imports:
     rgeos,
     rgdal,
     plotly
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
