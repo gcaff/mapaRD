@@ -86,8 +86,13 @@ mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
   if (!is.data.frame(df)){
     stop("df debe ser un data.frame")
   }
-  if (!(var %in% colnames(df))){
-    stop("df debe contener una columna llamada ID con los identificadores de cada territorio")
+  if (!(any(c("id","ID") %in% colnames(df)))){
+    stop("df debe contener una columna llamada 'ID' con los identificadores de cada territorio")
+  } else {
+    if ("id" %in% colnames(df)){
+      df <- df %>%
+        rename(ID=id)
+    }
   }
   if (!(idName %in% c("ID","ID2"))){
     stop("El argumento 'idName' debe ser 'ID' o 'ID2'")
