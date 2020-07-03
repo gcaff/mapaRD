@@ -14,3 +14,7 @@ Luego debe correr el siguiente script:
 ```
 devtools::install_github("gcaff/mapaRD")
 ```
+
+## Vignette (tutorial/documentación)
+
+Puede encontrar ejemplos y mayor información sobre este paquete en el siguiente [enlace](https://gcaff.github.io/packages/R/mapaRD.html "mapaRD Vignette").
