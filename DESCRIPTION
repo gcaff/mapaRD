@@ -3,7 +3,8 @@ Type: Package
 Title: Graficar mapas coropléticos de la República Dominicana
 Version: 0.1.0
 Author: Gustavo A. Caffaro
-Maintainer: Gustavo A. Caffaro <gcaff@pascalanalytics.com>
+Maintainer: person("Gustavo A.", "Caffaro", email = "gcaff@pascalanalytics.com",
+                  role = c("aut", "cre"))
 Description: Grafica mapas cloropléticos de distintos niveles territoriales
     en la República Dominicana. Las divisiones territoriales incluyen los niveles
     regionales, provinciales y municipales.
