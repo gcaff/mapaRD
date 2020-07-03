@@ -4,16 +4,17 @@
 \alias{mapaRD}
 \title{Graficar mapa de la Rep. Dom.}
 \usage{
-mapaRD(nivel = "provincial", df, var, sub, idName)
+mapaRD(df, var, nivel = "provincial", na.rm = FALSE, idName)
 }
 \arguments{
-\item{nivel}{nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})}
-
 \item{df}{dataframe con los valores}
 
 \item{var}{nombre de variable}
 
-\item{sub}{subconjunto de territorios}
+\item{nivel}{nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})}
+
+\item{na.rm}{logical que cuando es verdadero, excluye del gráfico los territorios
+con valores NA}
 }
 \value{
 Mapa
@@ -23,7 +24,7 @@ Grafica el mapa de la Rep. Dom. por nivel administrativo (regional,
 provincial y municipal).
 }
 \examples{
-d <- data.frame(ID = 1:32, x = rnorm(32))
-mapaRD("provincial", df = d, var= "x")
+d <- data.frame(ID = 1:155, x = rnorm(155))
+mapaRD("municipal", df = d, var= "x", idName = "ID2")
 
 }

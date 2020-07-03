@@ -4,14 +4,14 @@
 \alias{buscarMapaRD}
 \title{Buscar coordenadas de mapas por division territorial}
 \usage{
-buscarMapaRD(nivel, sub, maptype = "ggplot")
+buscarMapaRD(nivel, maptype = "ggplot")
 }
 \arguments{
 \item{nivel}{nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})}
 
-\item{sub}{subconjunto de territorios}
-
 \item{maptype}{busca el archivo dependiento el tipo de grafico}
+
+\item{sub}{subconjunto de territorios}
 }
 \value{
 None

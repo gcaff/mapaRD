@@ -104,7 +104,7 @@ mun_spdf_fort <- mun_spdf_fort %>%
 
 ######### Tabla Toponimia #########
 
-tabla_toponimia <- list(regional = reg_spdf@data,
+tabla_topon <- list(regional = reg_spdf@data,
                         provincial = prov_spdf@data,
                         municipal = mun_spdf@data)
 

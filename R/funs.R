@@ -142,7 +142,7 @@ tabla_toponimia <- function(nivel="provincial"){
   load("data/tabla_toponimia.RData")
 
   # seleccionar tabla de acorde al nivel territorial
-  tabla_toponimia[[nivel]]
+  tabla_topon[[nivel]]
 
 }
 
