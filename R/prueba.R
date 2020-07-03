@@ -49,7 +49,5 @@ ggmapaRD(d,"x",nivel="municipal", idName = "ID2", na.rm=T)
 
 # mapa RD interactivo
 
-mapaRD_interactivo(dd,"casos_acum",nivel="provincial", idName = "ID2") %>%
+mapaRD:::mapaRD_interactivo(dd,"casos_acum",nivel="provincial", idName = "ID2")
 
-
-plotly::ggplotly(p1)

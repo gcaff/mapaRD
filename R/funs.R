@@ -8,6 +8,8 @@
 #' @param var nombre de variable
 #' @param na.rm logical que cuando es verdadero, excluye del gráfico los territorios
 #' con valores NA
+#' @param idName nombre (caracter) de la variable ID con la que se empareja la data.
+#' solo admite dos valores: "ID" o "ID2".
 #'
 #' @return Mapa formato objeto ggplot
 #'
@@ -19,6 +21,17 @@
 ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
 
   varname <- sym(var)
+
+  # error handling
+  if (!is.data.frame(df)){
+    stop("df debe ser un data.frame")
+  }
+  if (!(var %in% colnames(df))){
+    stop("df debe contener una columna llamada ID con los identificadores de cada territorio")
+  }
+  if (!(idName %in% c("ID","ID2"))){
+    stop("El argumento 'idName' debe ser 'ID' o 'ID2'")
+  }
 
   # buscar coordenadas del mapa
   rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, maptype = "ggplot")
@@ -55,6 +68,8 @@ ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
 #' @param var nombre de variable
 #' @param na.rm logical que cuando es verdadero, excluye del gráfico los territorios
 #' con valores NA
+#' @param idName nombre (caracter) de la variable ID con la que se empareja la data.
+#' solo admite dos valores: "ID" o "ID2".
 #'
 #' @return Mapa
 #'
@@ -66,6 +81,17 @@ ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
 mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
 
   varname <- sym(var)
+
+  # error handling
+  if (!is.data.frame(df)){
+    stop("df debe ser un data.frame")
+  }
+  if (!(var %in% colnames(df))){
+    stop("df debe contener una columna llamada ID con los identificadores de cada territorio")
+  }
+  if (!(idName %in% c("ID","ID2"))){
+    stop("El argumento 'idName' debe ser 'ID' o 'ID2'")
+  }
 
   # buscar coordenadas del mapa
   rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, maptype = "base")

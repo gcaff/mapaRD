@@ -15,6 +15,9 @@ mapaRD(df, var, nivel = "provincial", na.rm = FALSE, idName)
 
 \item{na.rm}{logical que cuando es verdadero, excluye del gráfico los territorios
 con valores NA}
+
+\item{idName}{nombre (caracter) de la variable ID con la que se empareja la data.
+solo admite dos valores: "ID" o "ID2".}
 }
 \value{
 Mapa
