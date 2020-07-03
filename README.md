@@ -1,5 +1,5 @@
 # mapaRD
-Graficar mapas coropléticos de la República Dominicana
+Graficar mapas coropléticos de la República Dominicana por región, provincia y municipio.
 
 ![alt text][imagen]
 
