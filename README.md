@@ -1,6 +1,9 @@
 # mapaRD
 Graficar mapas coropléticos de la República Dominicana
 
+![alt text][imagen]
+
+[imagen]: vignette/images/municipal.png "Mapa cloroplético"
 
 ## Instalación
 
