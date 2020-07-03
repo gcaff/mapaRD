@@ -1,0 +1,62 @@
+---
+title: "Vignette mapaRD"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette mapaRD}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Tutorial paquete 'mapaRD'
+
+En este tutorial veremos el potencial del paquete `mapaRD` para graficar mapas coropléticos de República Dominicana.
+
+### Descripción
+
+El paquete `mapaRD` permite graficar mapas para distintas divisiones territoriales. Por el momento el paquete tiene completa
+integración con las divisiones regionales, provinciales y municipales del territorio dominicano.
+
+El objetivo del paquete es suministrar una función sencilla y poderosa que permita de manera
+succinta
+
+El paquete tiene tres funciones principales: `mapaRD()`, `ggmapaRD()`, `tabla_toponimia()`. Las primeras dos funciones tienen el mismo objetivo de graficar los mapas, y se distinguen en que `mapaRD()` utiliza el motor gráfico nativo en R (y por tanto es más veloz), mientras que la función `ggmapaRD()` utiliza el afamado paquete `ggplot2` para generar los gráficos. Yo recomiendo fuertemente el uso de la última.
+
+## Instalación
+
+Para instalar este paquete, se requiere el paquete `devtools`. Luego debe correr el siguiente código:
+```{r}
+devtools::install_github("gcaff/mapaRD")
+```
+
+Para seguir los ejemplos de este documento, también debe tener cargados los paquetes `ggplot2` y `dplyr`:
+```{r}
+library(ggplot2)
+library(dplyr)
+library(mapaRD)
+```
+
+### Función mapaRD
+
+Con esta función podemos graficar un mapa cloroplético de República Dominicana.
+
+En este ejemplo, quisiéramos ver un mapa que rellene cada región del país dependiendo de su población. Primero importemos los datos:
+```{r}
+d <- read.csv("http://gcaff.github.io/data/RD/pob_region_rd.csv")
+head(d)
+```
+Como pueden ver, estos datos contienen información poblacional, para los años 2010-2020, para cada región del país. Estos datos provienen de la Oficina Nacional de Estadística.
+
+Las funciones de este paquete usan la variable "ID" (en mayúscula), para hacer la conexión entre las divisiones territoriales y la data. Por tanto, es importante que el data frame que pasemos en las funciones del paquete usen "ID" como identificador.
+
+Ahora grafiquemos la población por región para el año 2010:
+```{r}
+mapaRD(d,"2010",nivel="regional", idName = "ID2")
+```
+ADD IMAGE
+
+```{r}
+ggmapaRD(d,"2010",nivel="regional", idName = "ID2") +
+  ggtitle("Población por región, 2010")
+
+```
+ADD IMAGE

@@ -18,7 +18,8 @@ ggmapaRD(dd,"casos_acum",nivel="provincial", idName = "ID2")
 
 d <- data.frame(ID=1:10,x=runif(10))
 mapaRD(d,"x",nivel="regional", idName = "ID2")
-ggmapaRD(d,"x",nivel="regional", idName = "ID2")
+ggmapaRD(d,"x",nivel="regional", idName = "ID2") +
+  ggtitle("Población por región, 2010")
 
 
 # nivel municipal
