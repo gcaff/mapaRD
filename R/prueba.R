@@ -29,7 +29,11 @@ ggmapaRD(d,"x",nivel="municipal", idName="ID2")
 
 # municipal para el gran santo domingo
 
-d <- data.frame(ID=1:15,x=runif(15))
+IDs_SD <- tabla_toponimia("municipal") %>%
+  filter(PROV %in% c("01","32")) %>% # DN y SD
+  pull(ID2)
+
+d <- data.frame(ID=IDs_SD,x=runif(length(IDs_SD)))
 mapaRD(d,"x",nivel="municipal", idName="ID2")
 ggmapaRD(d,"x",nivel="municipal", idName = "ID2")
 
