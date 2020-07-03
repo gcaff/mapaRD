@@ -17,4 +17,5 @@ Imports:
     cartography,
     ggplot2,
     rgdal,
-    rgeos
+    rgeos,
+    plotly

@@ -5,6 +5,9 @@ library(cartography)
 
 ##### República Dominicana
 
+# parameters
+tol <- 10 # tolerancia en algoritmo de reduccion de poligonos
+
 ########### Region ###########
 # importar SPDF
 rd_spdf_raw <- readOGR(
@@ -14,7 +17,7 @@ rd_spdf_raw <- readOGR(
 )
 
 rd_spdf2 <- rd_spdf_raw
-rd_spdf1 <- gSimplify(rd_spdf_raw, 100, topologyPreserve = TRUE) # reducir tamanio del SPDF
+rd_spdf1 <- gSimplify(rd_spdf_raw, tol, topologyPreserve = TRUE) # reducir tamanio del SPDF
 
 # introducir poligonos reducidos al SPDF original (que contiene la data)
 rd_spdf2@polygons <- rd_spdf1@polygons
@@ -45,7 +48,7 @@ rd_spdf_raw <- readOGR(
 )
 
 rd_spdf2 <- rd_spdf_raw
-rd_spdf1 <- gSimplify(rd_spdf_raw, 100, topologyPreserve = TRUE) # reducir tamanio del SPDF
+rd_spdf1 <- gSimplify(rd_spdf_raw, tol, topologyPreserve = TRUE) # reducir tamanio del SPDF
 
 # introducir poligonos reducidos al SPDF original (que contiene la data)
 rd_spdf2@polygons <- rd_spdf1@polygons
@@ -76,7 +79,7 @@ rd_spdf_raw <- readOGR(
 )
 
 rd_spdf2 <- rd_spdf_raw
-rd_spdf1 <- gSimplify(rd_spdf_raw, 100, topologyPreserve = TRUE) # reducir tamanio del SPDF
+rd_spdf1 <- gSimplify(rd_spdf_raw, tol, topologyPreserve = TRUE) # reducir tamanio del SPDF
 
 # introducir poligonos reducidos al SPDF original (que contiene la data)
 rd_spdf2@polygons <- rd_spdf1@polygons

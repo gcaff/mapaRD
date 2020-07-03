@@ -34,7 +34,22 @@ IDs_SD <- tabla_toponimia("municipal") %>%
   pull(ID2)
 
 d <- data.frame(ID=IDs_SD,x=runif(length(IDs_SD)))
-mapaRD(d,"x",nivel="municipal", idName="ID2")
-ggmapaRD(d,"x",nivel="municipal", idName = "ID2")
+mapaRD(d,"x",nivel="municipal", idName="ID2", na.rm=T)
+ggmapaRD(d,"x",nivel="municipal", idName = "ID2", na.rm=T)
+
+# municipal para santiago
+
+IDs_SANTIAGO <- tabla_toponimia("municipal") %>%
+  filter(PROV == "25") %>% # Santiago
+  pull(ID2)
+
+d <- data.frame(ID=IDs_SANTIAGO,x=runif(length(IDs_SANTIAGO)))
+mapaRD(d,"x",nivel="municipal", idName="ID2", na.rm=T)
+ggmapaRD(d,"x",nivel="municipal", idName = "ID2", na.rm=T)
+
+# mapa RD interactivo
+
+mapaRD_interactivo(dd,"casos_acum",nivel="provincial", idName = "ID2") %>%
 
 
+plotly::ggplotly(p1)

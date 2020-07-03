@@ -23,7 +23,7 @@ ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
   # buscar coordenadas del mapa
   rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, maptype = "ggplot")
 
-  # unir las coordenadas con la data de df
+  # unir las coordenadas con la data en df
   if (idName == "ID2"){
     rd_spdf <- rd_spdf %>%
       dplyr::left_join(df, by=c("ID2"="ID"))
@@ -59,8 +59,8 @@ ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
 #' @return Mapa
 #'
 #' @examples
-#' d <- data.frame(ID = 1:32, x = rnorm(32))
-#' mapaRD("provincial", df = d, var= "x")
+#' d <- data.frame(ID = 1:155, x = rnorm(155))
+#' mapaRD("municipal", df = d, var= "x", idName = "ID2")
 #'
 #' @export
 mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
@@ -89,6 +89,39 @@ mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
   cartography::choroLayer(spdf = rd_spdf, var = var)
 
 }
+
+#' Graficar mapa interactivo de la Rep. Dom.
+#'
+#' Grafica un mapa interactivo de la Rep. Dom. por nivel administrativo (regional,
+#' provincial y municipal).
+#'
+#' @param nivel nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})
+#' @param df dataframe con los valores
+#' @param var nombre de variable
+#' @param na.rm logical que cuando es verdadero, excluye del gráfico los territorios
+#' con valores NA
+#'
+#' @return Mapa formato objeto plotly
+#'
+#' @examples
+#' d <- data.frame(ID = 1:32, x = rnorm(32))
+#' mapaRD_interactivo("provincial", df = d, var= "x", idName = "ID2")
+#'
+#'
+mapaRD_interactivo <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
+
+  # generar mapa formato ggplot
+  p_rd <- mapaRD:::ggmapaRD(df = df,
+                            var = var,
+                            nivel = nivel,
+                            #na.rm = na.rm,
+                            idName = idName)
+
+  # animar usando plotly
+  plotly::ggplotly(p_rd)
+
+}
+
 
 #' Tabla de toponimia
 #'
