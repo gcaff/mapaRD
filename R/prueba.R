@@ -21,6 +21,12 @@ mapaRD(d,"x",nivel="regional", idName = "ID2")
 ggmapaRD(d,"x",nivel="regional", idName = "ID2") +
   ggtitle("Población por región, 2010")
 
+p1 <- ggmapaRD(d,"x",nivel="regional", idName = "ID2") +
+  ggtitle("Población por región, 2010")
+
+p1 +
+  scale_fill_gradient(low = "yellow", high = "red") +
+  scale_color_gradient(low="black", high="black")
 
 # nivel municipal
 
