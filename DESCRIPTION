@@ -1,7 +1,7 @@
 Package: mapaRD
 Type: Package
 Title: Graficar mapas coropléticos de la República Dominicana
-Version: 0.1.1
+Version: 0.1.2
 Author: Gustavo A. Caffaro <gcaff@pascaslanalytics.com>
 Maintainer: Gustavo A. Caffaro <gcaff@pascaslanalytics.com>
 Description: Grafica mapas cloropléticos de distintos niveles territoriales
