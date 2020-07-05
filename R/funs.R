@@ -18,7 +18,7 @@
 #' ggmapaRD("provincial", df = d, var= "x", idName = "ID2")
 #'
 #' @export
-ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
+ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName, key="ID"){
 
   varname <- sym(var)
 
@@ -27,24 +27,28 @@ ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
     stop("df debe ser un data.frame")
   }
   if (!(var %in% colnames(df))){
-    stop("df debe contener una columna llamada ID con los identificadores de cada territorio")
+    stop("'var' debe ser a una columna dentro de df")
   }
   if (!(idName %in% c("ID","ID2"))){
     stop("El argumento 'idName' debe ser 'ID' o 'ID2'")
+  }
+  if (!(key %in% colnames(df))){
+    stop(paste0("df debe contener una columna llamada '", key,"' con los identificadores de cada territorio"))
+  }
+  if (!(nivel %in% c("regional", "provincial", "municipal"))){
+    stop("el argumento 'nivel' debe ser uno de los siguientes: 'regional', 'provincial', 'municipal'")
   }
 
   # buscar coordenadas del mapa
   rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, maptype = "ggplot")
 
   # unir las coordenadas con la data en df
-  if (idName == "ID2"){
-    rd_spdf <- rd_spdf %>%
-      dplyr::left_join(df, by=c("ID2"="ID"))
-  } else {
-    rd_spdf <- rd_spdf %>%
-      dplyr::left_join(df, by="ID")
-  }
+  names(key) <- idName
 
+  rd_spdf <- rd_spdf %>%
+    dplyr::left_join(df, by=key)
+
+  # borrar
   if (na.rm){
     rd_spdf <- rd_spdf %>%
       dplyr::filter(!is.na(!!varname))
@@ -86,11 +90,17 @@ mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
   if (!is.data.frame(df)){
     stop("df debe ser un data.frame")
   }
-  if (!(any(c("ID") %in% colnames(df)))){
-    stop("df debe contener una columna llamada 'ID' con los identificadores de cada territorio")
+  if (!(var %in% colnames(df))){
+    stop("'var' debe ser a una columna dentro de df")
   }
   if (!(idName %in% c("ID","ID2"))){
     stop("El argumento 'idName' debe ser 'ID' o 'ID2'")
+  }
+  if (!(key %in% colnames(df))){
+    stop(paste0("df debe contener una columna llamada '", key,"' con los identificadores de cada territorio"))
+  }
+  if (!(nivel %in% c("regional", "provincial", "municipal"))){
+    stop("el argumento 'nivel' debe ser uno de los siguientes: 'regional', 'provincial', 'municipal'")
   }
 
   # buscar coordenadas del mapa
