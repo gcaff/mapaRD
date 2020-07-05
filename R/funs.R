@@ -6,10 +6,11 @@
 #' @param nivel nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})
 #' @param df dataframe con los valores
 #' @param var nombre de variable
-#' @param na.rm logical que cuando es verdadero, excluye del gráfico los territorios
+#' @param na.rm logical que, cuando es verdadero, excluye del gráfico los territorios
 #' con valores NA
-#' @param idName nombre (caracter) de la variable ID con la que se empareja la data.
-#' solo admite dos valores: "ID" o "ID2".
+#' @param idName nombre (caracter) de la variable ID en la tabla_toponimia con la que se empareja la data.
+#' solo admite dos valores: "ID" o "ID2" (ver función tabla_toponimia)
+#' @param key nombre (caracter) de la variable identificadora en df.
 #'
 #' @return Mapa formato objeto ggplot
 #'
@@ -70,10 +71,11 @@ ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName, key="ID
 #' @param nivel nivel territorial/administrativo (\code{"regional"}, \code{"provincial"}, o \code{"municipal"})
 #' @param df dataframe con los valores
 #' @param var nombre de variable
-#' @param na.rm logical que cuando es verdadero, excluye del gráfico los territorios
+#' @param na.rm logical que, cuando es verdadero, excluye del gráfico los territorios
 #' con valores NA
-#' @param idName nombre (caracter) de la variable ID con la que se empareja la data.
-#' solo admite dos valores: "ID" o "ID2".
+#' @param idName nombre (caracter) de la variable ID en la tabla_toponimia con la que se empareja la data.
+#' solo admite dos valores: "ID" o "ID2" (ver función tabla_toponimia)
+#' @param key nombre (caracter) de la variable identificadora en df.
 #'
 #' @return Mapa
 #'
@@ -82,7 +84,7 @@ ggmapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName, key="ID
 #' mapaRD("municipal", df = d, var= "x", idName = "ID2")
 #'
 #' @export
-mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
+mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName, key="ID"){
 
   varname <- sym(var)
 
@@ -107,13 +109,10 @@ mapaRD <- function(df, var, nivel="provincial", na.rm = FALSE, idName){
   rd_spdf <- mapaRD:::buscarMapaRD(nivel=nivel, maptype = "base")
 
   # unir las coordenadas con la data de df
-  if (idName=="ID2"){
-    rd_spdf@data <- rd_spdf@data %>%
-      dplyr::left_join(df, by=c("ID2"="ID"))
-  } else {
-    rd_spdf@data <- rd_spdf@data %>%
-      dplyr::left_join(df, by="ID")
-  }
+  names(key) <- idName
+
+  rd_spdf@data <- rd_spdf@data %>%
+    dplyr::left_join(df, by=key)
 
   # si na.rm=TRUE, excluye del grafico los territorios con NAs
   if (na.rm){
