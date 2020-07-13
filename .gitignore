@@ -2,3 +2,4 @@ packrat/lib*/
 .Rproj.user
 doc
 Meta
+R/generar_mapas.R
